@@ -8,7 +8,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 /**
- * Retrieves data from the provided URL.
+ * Retrieves artwork from the provided URL.
  */
 public class ArtworkRetriever {
 	
@@ -20,7 +20,7 @@ public class ArtworkRetriever {
 	private URL gathererUrl;
 	
 	/**
-	 * Creates a <code>DataRetriever</code> object and specifies the <code>URL</code> to retrieve the data from
+	 * Creates a <code>DataRetriever</code> object and specifies the <code>URL</code> to retrieve the artwork from
 	 * @param gathererURL
 	 */
 	ArtworkRetriever(URL gathererURL) {
@@ -29,8 +29,8 @@ public class ArtworkRetriever {
 
 	/**
 	 * Retrieves the card artwork
-	 * @return The retrieved image
-	 * @throws IOException if unable to retrieve the image
+	 * @return The retrieved artwork
+	 * @throws IOException if unable to retrieve the artwork
 	 */
 	public BufferedImage getArtwork() throws IOException {
 		try (InputStream inStream = gathererUrl.openStream();) {

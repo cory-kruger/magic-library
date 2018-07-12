@@ -32,8 +32,8 @@ public class ArtworkRetrieverTest {
 		
 		URL gathererUrl = new URL("", "", 0, "", stubUrlHandler);
 		ArtworkRetriever retriever = new ArtworkRetriever(gathererUrl);
-		Image image = retriever.getArtwork();
-		assertNotNull(image);
+		Image artwork = retriever.getArtwork();
+		assertNotNull(artwork);
 	}
 
 }

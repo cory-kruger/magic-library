@@ -13,7 +13,7 @@ public class ArtworkRetrieverFactory {
 	 * @param multiverseId the UUID of the card to retrieve
 	 * @return An <code>ArtworkRetriever</code> ready to retrieve a card's artwork
 	 */
-	public ArtworkRetriever getImageRetriever(int multiverseId) {
+	public ArtworkRetriever getArtworkRetriever(int multiverseId) {
 		try {
 			URL gathererUrl = new URL(String.format(ArtworkRetriever.ARTWORK_ADDRESS, multiverseId));
 			return new ArtworkRetriever(gathererUrl);
