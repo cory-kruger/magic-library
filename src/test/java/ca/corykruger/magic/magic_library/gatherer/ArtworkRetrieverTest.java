@@ -1,7 +1,9 @@
 package ca.corykruger.magic.magic_library.gatherer;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,10 +14,10 @@ import java.net.URLStreamHandler;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-public class DataRetrieverTest {
+public class ArtworkRetrieverTest {
 	
 	@Test
-	public void retrievesImage() throws IOException {
+	public void artworkRetrieved() throws IOException {
 		final URLConnection mockUrlConnection = mock(URLConnection.class);
 		FileInputStream inStream = new FileInputStream(FileUtils.getFile("resources/1.jpg"));
 		when(mockUrlConnection.getInputStream()).thenReturn(inStream);
@@ -29,9 +31,9 @@ public class DataRetrieverTest {
 		};
 		
 		URL gathererUrl = new URL("", "", 0, "", stubUrlHandler);
-		DataRetriever retriever = new DataRetriever(gathererUrl);
-		Image image = retriever.getImage();
-		assertNotNull(image);
+		ArtworkRetriever retriever = new ArtworkRetriever(gathererUrl);
+		Image artwork = retriever.getArtwork();
+		assertNotNull(artwork);
 	}
 
 }
