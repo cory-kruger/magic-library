@@ -4,13 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Constructs a <code>DataRetriever</code> with a ready-to-use <code>URL</code>
+ * Constructs a ready-to-use <code>ArtworkRetriever</code> or <code>CardRetriever</code>
  */
 public class RetrieverFactory {
 	
 	/**
 	 * Creates a <code>ArtworkRetriever</code> that can be used to retrieve a card's artwork
-	 * @param multiverseId the UUID of the card to retrieve
+	 * @param multiverseId The UUID of the card to retrieve
 	 * @return An <code>ArtworkRetriever</code> ready to retrieve a card's artwork
 	 */
 	public ArtworkRetriever getArtworkRetriever(int multiverseId) {
@@ -22,6 +22,12 @@ public class RetrieverFactory {
 		}
 	}
 	
+	/**
+	 * Creates a <code>CardRetriever</code> that can be used to retrieve a card's data
+	 * @param oracle Whether to get the card's oracle text or card text
+	 * @param multiverseId The UUID of the card to retrieve
+	 * @return A <code>CardRetriever</code> ready to retrieve a card's data
+	 */
 	public CardRetriever getCardRetriever(boolean oracle, int multiverseId) {
 		return new CardRetriever(CardRetriever.formatAddress(oracle, multiverseId));
 	}

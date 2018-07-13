@@ -38,6 +38,11 @@ public class ArtworkRetriever {
 		}
 	}
 	
+	/**
+	 * Formats the <code>ARTWORK_ADDRESS</code> with the given id
+	 * @param multiverseId The id to add to the address 
+	 * @return The formatted address
+	 */
 	public static String formatAddress(int multiverseId) {
 		return String.format(ARTWORK_ADDRESS, multiverseId);
 	}
