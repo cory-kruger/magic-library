@@ -23,7 +23,7 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		final int multiverseId = 1;
+		final int multiverseId = 14668;
 		
 		String gathererAddress = String.format(CardRetriever.GATHERER_ADDRESS, false, multiverseId);
 		CardRetriever cardRetriever = new CardRetriever(gathererAddress).populate();
