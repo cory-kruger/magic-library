@@ -60,6 +60,16 @@ public class CardRetriever {
 	}
 	
 	/**
+	 * Formats the gatherer address with the provided parameters
+	 * @param oracle Whether to retrieve the oracle or card text
+	 * @param multiverseId The UUID of the card to retrieve
+	 * @return The formatted address
+	 */
+	public static String formatAddress(boolean oracle, int multiverseId) {
+		return String.format(GATHERER_ADDRESS, oracle, multiverseId);
+	}
+	
+	/**
 	 * Uses the provided CSS <code>selector</code> to retrieve an element from the document
 	 * @param selector The CSS <code>selector</code> to select the element with
 	 * @return The selected <code>element</code>
@@ -82,14 +92,17 @@ public class CardRetriever {
 	 * @param selector The CSS <code>selector</code> whose element's text is to be retrieved
 	 * @return the text of the <code>element</code> selected by the <code>selector</code>
 	 * @throws DocumentNotPopulatedException If the document is null
-	 * @throws MissingElementException If the document does not contain an element that can be selected by the <code>selector</code>
 	 */
-	public String getElementText(String selector) throws DocumentNotPopulatedException, MissingElementException {
-		Element element = getElement(selector);
-		if (SELECTOR_MANA_COST.equals(selector)) {
-			return getManaCost(element);
+	public String getElementText(String selector) throws DocumentNotPopulatedException {
+		try {
+			Element element = getElement(selector);
+			if (SELECTOR_MANA_COST.equals(selector)) {
+				return getManaCost(element);
+			}
+			return element.text();
+		} catch (MissingElementException mee) {
+			return "";
 		}
-		return element.text();
 	}
 	
 	/**

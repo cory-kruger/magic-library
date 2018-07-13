@@ -1,9 +1,8 @@
 package ca.corykruger.magic.magic_library.gui;
 
+import java.io.IOException;
+
 import ca.corykruger.magic.magic_library.card.Card;
-import ca.corykruger.magic.magic_library.gatherer.ArtworkRetriever;
-import ca.corykruger.magic.magic_library.gatherer.ArtworkRetrieverFactory;
-import ca.corykruger.magic.magic_library.gatherer.CardRetriever;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -23,26 +22,32 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		final int multiverseId = 14668;
+		ImageView artwork = new ImageView();
+		Text name = new Text("");
+		Text manaCost = new Text("");
+		Text types = new Text("");
+		Text oracleText = new Text("");
+		Text flavorText = new Text("");
+		Text expansion = new Text("");
+		Text rarity = new Text("");
+		Text collectorNumber = new Text("");
+		Text artist = new Text("");
 		
-		String gathererAddress = String.format(CardRetriever.GATHERER_ADDRESS, false, multiverseId);
-		CardRetriever cardRetriever = new CardRetriever(gathererAddress).populate();
-		
-		ArtworkRetrieverFactory factory = new ArtworkRetrieverFactory();
-		ArtworkRetriever artworkRetriever = factory.getArtworkRetriever(multiverseId);
-		
-		Card card = new Card(multiverseId, 
-			cardRetriever.getElementText(CardRetriever.SELECTOR_NAME),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_MANA_COST),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_TYPES),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_ORACLE_TEXT),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_FLAVOR_TEXT),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_EXPANSION),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_RARITY),
-			Integer.parseInt(cardRetriever.getElementText(CardRetriever.SELECTOR_SET_NUMBER)),
-			cardRetriever.getElementText(CardRetriever.SELECTOR_ARTIST),
-			artworkRetriever.getArtwork()
-		);
+		try {
+			Card card = new CardPanelController(true, 14668).getCard();
+			artwork.setImage(SwingFXUtils.toFXImage(card.getArtwork(), null));
+			name.setText(card.getName());
+			manaCost.setText(card.getManaCost());
+			types.setText(card.getTypes());
+			oracleText.setText(card.getOracleText());
+			flavorText.setText(card.getFlavortext());
+			expansion.setText(card.getExpansion());
+			rarity.setText(card.getRarity());
+			collectorNumber.setText(Integer.toString(card.getCollectorNumber()));
+			artist.setText(card.getArtist());
+		} catch (IOException ioe) {
+			
+		}
 		
 		
 		GridPane grid = new GridPane();
@@ -51,21 +56,7 @@ public class MainApplication extends Application {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		
-		
-		ImageView imageView = new ImageView(SwingFXUtils.toFXImage(card.getArtwork(), null));
-		Text name = new Text(card.getName());
-		Text manaCost = new Text(card.getManaCost());
-		Text types = new Text(card.getTypes());
-		Text oracleText = new Text(card.getOracleText());
-		Text flavorText = new Text(card.getFlavortext());
-		Text expansion = new Text(card.getExpansion());
-		Text rarity = new Text(card.getRarity());
-		Text collectorNumber = new Text(Integer.toString(card.getCollectorNumber()));
-		Text artist = new Text(card.getArtist());
-		
-		
-		
-		grid.add(imageView, 0, 0, 2, 1);
+		grid.add(artwork, 0, 0, 2, 1);
 		grid.add(name, 1, 1);
 		grid.add(manaCost, 1, 2);
 		grid.add(types, 1, 3);

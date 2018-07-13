@@ -17,7 +17,7 @@ public class Card {
 	private String flavorText;
 	private String rarity;
 	
-	public Card(int multiverseId, String name, String manaCost, String types, String oracleText, String flavorText, String expansion, String rarity, int collectorNumber, String artist, BufferedImage artwork) {
+	public Card(int multiverseId, String name, String manaCost, String types, String oracleText, String flavorText, String expansion, String rarity, String collectorNumberString, String artist, BufferedImage artwork) {
 		this.multiverseId = multiverseId;
 		this.name = name;
 		this.manaCost = manaCost;
@@ -26,7 +26,11 @@ public class Card {
 		this.flavorText = flavorText;
 		this.expansion = expansion;
 		this.rarity = rarity;
-		this.number = collectorNumber;
+		try {
+			this.number = Integer.parseInt(collectorNumberString);
+		} catch (NumberFormatException nfe) {
+			this.number = -1;
+		}
 		this.artist = artist;
 		this.artwork = artwork;
 	}

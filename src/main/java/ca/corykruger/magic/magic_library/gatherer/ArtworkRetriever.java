@@ -38,6 +38,10 @@ public class ArtworkRetriever {
 		}
 	}
 	
+	public static String formatAddress(int multiverseId) {
+		return String.format(ARTWORK_ADDRESS, multiverseId);
+	}
+	
 	
 
 }
