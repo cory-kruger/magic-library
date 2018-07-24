@@ -27,7 +27,7 @@ public class FileUtilsWrapper {
 	}
 	
 	/**
-	 * Calls {2link {@link #readFileToString(File, Charset)} using the default <code>charset</code>
+	 * Calls {@link #readFileToString(File, Charset)} using the default <code>charset</code>
 	 * @param file the file to read, must not be null
 	 * @return the file contents, never null
 	 * @throws IOException in case of an I/O error
