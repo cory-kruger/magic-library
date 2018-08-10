@@ -23,6 +23,19 @@ public class Set {
 	private Translation translations;
 	private List<Card> cards;
 	
+	/**
+	 * Parameterized constructor
+	 * @param name The name of the set
+	 * @param code The alphanumeric code of the set
+	 * @param releaseDate The date the set was released
+	 * @param border The border of the cards in the set
+	 * @param type The type of the set
+	 * @param block The block that the set was released as part of
+	 * @param onlineOnly If the set is only available in online environments
+	 * @param booster The distribution of card rarities in booster packs of the set
+	 * @param translations The name of the set in various non-English languages
+	 * @param cards The list of cards contained within the set
+	 */
 	public Set(String name, String code, String releaseDate, String border, String type, String block, 
 			boolean onlineOnly, List<?> booster, Translation translations, List<Card> cards) {
 		this.name = name;

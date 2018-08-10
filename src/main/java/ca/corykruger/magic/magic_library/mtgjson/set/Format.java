@@ -3,20 +3,30 @@ package ca.corykruger.magic.magic_library.mtgjson.set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * A game format in which a card has a state of legality
+ */
 public class Format {
 
 	private String format;
 	private String legality;
 	
+	/**
+	 * Parameterized constructor
+	 * @param format The name of the format
+	 * @param legality The legal state of a card in the format
+	 */
 	public Format(String format, String legality) {
 		this.format = format;
 		this.legality = legality;
 	}
 	
+	@Override
 	public String toString() {
 		return format + ":  " + legality;
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -33,6 +43,7 @@ public class Format {
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(233, 157)
 				.append(this.format)

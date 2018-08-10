@@ -3,12 +3,21 @@ package ca.corykruger.magic.magic_library.mtgjson.set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * A non-English variant of a card
+ */
 public class ForeignVariant {
 	
 	private String language;
 	private String name;
 	private String multiverseid;
 	
+	/**
+	 * Parameterized constructor
+	 * @param language The language of the variant
+	 * @param name The name of the variant in its own language
+	 * @param multiverseid The multiverseid of the variant
+	 */
 	public ForeignVariant(String language, String name, String multiverseid) {
 		this.language = language;
 		this.name = name;

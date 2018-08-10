@@ -3,6 +3,9 @@ package ca.corykruger.magic.magic_library.mtgjson.set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * A wrapper for the non-English names of a set
+ */
 public class Translation {
 	
 	private String de;
@@ -16,6 +19,19 @@ public class Translation {
 	private String tw;
 	private String ko;
 	
+	/**
+	 * Parameterized constructor
+	 * @param de The German translation
+	 * @param fr The French translation
+	 * @param it The Italian translation
+	 * @param es The Spanish translation
+	 * @param pt The Portuguese translation
+	 * @param jp The Japanese translation
+	 * @param cn The Chinese (Simplified) translation
+	 * @param ru The Russian translation
+	 * @param tw The Chinese (Traditional) translation
+	 * @param ko The Korean translation
+	 */
 	public Translation(String de, String fr, String it, String es, String pt, String jp, String cn, String ru,
 			String tw, String ko) {
 		this.de = de;
@@ -30,6 +46,7 @@ public class Translation {
 		this.ko = ko;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("German:  " + de + "\r\n");
@@ -46,6 +63,7 @@ public class Translation {
 		return builder.toString();
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -70,6 +88,7 @@ public class Translation {
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(37, 31)
 				.append(this.de)
