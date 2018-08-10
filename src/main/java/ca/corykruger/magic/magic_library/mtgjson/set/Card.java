@@ -2,9 +2,9 @@ package ca.corykruger.magic.magic_library.mtgjson.set;
 
 import java.util.List;
 
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import javafx.util.Pair;
 
 /**
  * A single card.
@@ -20,9 +20,9 @@ public class Card {
 	private List<String> colors;
 	private List<String> colorIdentity;
 	private String type;
-	private List<String> superTypes;
+	private List<String> supertypes;
 	private List<String> types;
-	private List<String> subTypes;
+	private List<String> subtypes;
 	private String rarity;
 	private String text;
 	private String flavor;
@@ -31,7 +31,7 @@ public class Card {
 	private String power;
 	private String toughness;
 	private String loyalty;
-	private String multiverseId;
+	private String multiverseid;
 	private List<String> variations;
 	private String watermark;
 	private String border;
@@ -42,67 +42,61 @@ public class Card {
 	private String releaseDate;
 	private boolean starter;
 	private List<Ruling> rulings;
-	private List<Pair<String, String>> foreignNames;
+	private List<ForeignVariant> foreignNames;
 	private List<String> printings;
 	private String originalText;
 	private String originalType;
-	private List<Pair<String, String>> legalities;
+	private List<Format> legalities;
 	private String source;
 	
 	/**
 	 * Parameterized constructor
-	 * @param id A unique ID for this card
-	 * @param layout The card layout
-	 * @param name The card name
-	 * @param names Only used for split, flip, double-faced, and meld cards.  
-	 * 	Will contain all the names on this card, front or back.  
-	 * 	For meld cards, the first name is the card with the meld ability, which has the top half on its back, 
-	 * 	the second name is the card with the reminder text, and the third name is the melded back face.
-	 * @param manaCost The mana cost of this card.  Consists of one or more mana symbols.
-	 * @param cmc Converted mana cost.  Always a number.  
-	 * 	NOTE:  CMC may have a decimal point as cards from unhinged may contain "half mana".
-	 * @param colors The card colors
-	 * @param colorIdentity The color identity of the card.  It is the same of double-sided cards 
-	 * 	(if they have different colors, the identity will have both colors).
-	 * @param type The overall card type.  NOTE:  The dash is a UTF-8 'long dash'.
-	 * @param superTypes The supertypes of the card.  These appear to the far left of the card type.
-	 * @param types The types of the card.  These appear to the left of the dash in the card type.
-	 * @param subTypes The subtypes of the card.  These appear to the right of the dash in a card type.
+	 * @param id The UID of the card
+	 * @param layout The layout of the card
+	 * @param name The name of the card
+	 * @param names All of the names on the card, front or back
+	 * @param manaCost The mana cost of the card
+	 * @param cmc The converted mana cost of the card 
+	 * @param colors The colors of the card
+	 * @param colorIdentity The color identity of the card
+	 * @param type The overall type of the card
+	 * @param supertypes The supertypes of the card
+	 * @param types The base types of the card
+	 * @param subtypes The subtypes of the card
 	 * @param rarity The rarity of the card
 	 * @param text The text of the card
 	 * @param flavor The flavor text of the card
 	 * @param artist the artist of the card.  
-	 * 	NOTE:  This may not match what is on the card as MTGJSON corrects many card misprints
-	 * @param number The card number
-	 * @param power The power of the card.  This is only present for creatures.
-	 * @param toughness The toughness of the card.  This is only present for creatures.
-	 * @param loyalty The loyalty of the card.  This is only present for planeswalkers.
-	 * @param multiverseId The multiverseId of the card on Wizard's gatherer web page
-	 * @param variations The multiverseIDs of any variations of this card, due to alternate art
+	 * @param number The number of the card
+	 * @param power The power of the card
+	 * @param toughness The toughness of the card
+	 * @param loyalty The loyalty of the card
+	 * @param multiverseid The multiverseid of the card from Wizard's gatherer web page
+	 * @param variations The multiverseids of any variations of this card, due to alternate art
 	 * @param watermark The watermark on the card
-	 * @param border The border of the card, if different from the default border for the card's set
-	 * @param timeshifted If this card was a timeshifted card in its set
-	 * @param hand The card's maximum hand size modifier
-	 * @param life The card's starting life total modifier
-	 * @param reserved If this card is reserved by Wizards' Official Reprint Policy
-	 * @param releaseDate The date this card was released, only for promo cards
-	 * @param starter If this card was release as part of a core box set
+	 * @param border The border of the card
+	 * @param timeshifted If the card was a timeshifted card in its set
+	 * @param hand The maximum hand size modifier of the card
+	 * @param life The starting life total modifier of the card
+	 * @param reserved If the card is reserved by Wizards' Official Reprint Policy
+	 * @param releaseDate The release date of the card
+	 * @param starter If the card was released as part of a core box set
 	 * @param rulings The rulings for the card
-	 * @param foreignNames The foreign language names for the card, if this card in this set was printed in another language
-	 * @param printings The sets that this card was printed in
+	 * @param foreignNames The foreign language names for the card
+	 * @param printings The sets that the card was printed in
 	 * @param originalText The original text on the card at the time it was printed
 	 * @param originalType The original type on the card at the time it was printed
-	 * @param legalities The formats this card is legal, restricted, or banned in
+	 * @param legalities The formats the card is legal, restricted, or banned in
 	 * @param source The original source of the card, for promo cards only
 	 */
 	public Card(String id, String layout, String name, List<String> names, String manaCost, int cmc, 
-			List<String> colors, List<String> colorIdentity, String type, List<String> superTypes,
-			List<String> types, List<String> subTypes, String rarity, String text, String flavor, String artist,
+			List<String> colors, List<String> colorIdentity, String type, List<String> supertypes,
+			List<String> types, List<String> subtypes, String rarity, String text, String flavor, String artist,
 			String number, String power, String toughness, String loyalty, String multiverseId, 
 			List<String> variations, String watermark, String border, boolean timeshifted, String hand, 
 			String life, boolean reserved, String releaseDate, boolean starter, List<Ruling> rulings,
-			List<Pair<String, String>> foreignNames, List<String> printings, String originalText, 
-			String originalType, List<Pair<String, String>> legalities, String source) {
+			List<ForeignVariant> foreignNames, List<String> printings, String originalText, 
+			String originalType, List<Format> legalities, String source) {
 		this.id = id;
 		this.layout = layout;
 		this.name = name;
@@ -112,9 +106,9 @@ public class Card {
 		this.colors = colors;
 		this.colorIdentity = colorIdentity;
 		this.type = type;
-		this.superTypes = superTypes;
+		this.supertypes = supertypes;
 		this.types = types;
-		this.subTypes = subTypes;
+		this.subtypes = subtypes;
 		this.rarity = rarity;
 		this.text = text;
 		this.flavor = flavor;
@@ -123,7 +117,7 @@ public class Card {
 		this.power = power;
 		this.toughness = toughness;
 		this.loyalty = loyalty;
-		this.multiverseId = multiverseId;
+		this.multiverseid = multiverseId;
 		this.variations = variations;
 		this.watermark = watermark;
 		this.border = border;
@@ -144,7 +138,7 @@ public class Card {
 	
 	@Override
 	public String toString() {
-		return "(" + multiverseId + ") " + name;
+		return "(" + multiverseid + ") " + name;
 	}
 	
 	@Override
@@ -155,54 +149,43 @@ public class Card {
 		
 		if (obj instanceof Card) {
 			Card aCard = (Card) obj;
-			if (this.id.equals(aCard.getId())
-					&& this.layout.equals(aCard.getLayout())
-					&& this.name.equals(aCard.getName())
-					&& this.names.size() == aCard.getNames().size()
-					&& this.names.containsAll(aCard.getNames())
-					&& this.manaCost.equals(aCard.getManaCost())
+			if (StringUtils.equals(this.id, aCard.getId())
+					&& StringUtils.equals(this.layout, aCard.getLayout()) 
+					&& StringUtils.equals(this.name,aCard.getName())
+					&& ListUtils.isEqualList(this.names, aCard.getNames())
+					&& StringUtils.equals(this.manaCost, aCard.getManaCost())
 					&& this.cmc == aCard.getCmc()
-					&& this.colors.size() == aCard.getColors().size()
-					&& this.colors.containsAll(aCard.getColors())
-					&& this.colorIdentity.size() == aCard.getColorIdentity().size()
-					&& this.colorIdentity.equals(aCard.getColorIdentity())
-					&& this.type.equals(aCard.getType())
-					&& this.superTypes.size() == aCard.getSuperTypes().size()
-					&& this.superTypes.containsAll(aCard.getSuperTypes())
-					&& this.types.size() == aCard.getTypes().size()
-					&& this.types.containsAll(aCard.getTypes())
-					&& this.subTypes.size() == aCard.getSubTypes().size()
-					&& this.subTypes.containsAll(aCard.getSubTypes())
-					&& this.rarity.equals(aCard.getRarity())
-					&& this.text.equals(aCard.getText())
-					&& this.flavor.equals(aCard.getFlavor())
-					&& this.artist.equals(aCard.getArtist())
-					&& this.number.equals(aCard.getNumber())
-					&& this.power.equals(aCard.getPower())
-					&& this.toughness.equals(aCard.getToughness())
-					&& this.loyalty.equals(aCard.getLoyalty())
-					&& this.multiverseId.equals(aCard.getMultiverseId())
-					&& this.variations.size() == aCard.getVariations().size()
-					&& this.variations.containsAll(aCard.getVariations())
-					&& this.watermark.equals(aCard.getWatermark())
-					&& this.border.equals(aCard.getBorder())
+					&& ListUtils.isEqualList(this.colors, aCard.getColors())
+					&& ListUtils.isEqualList(this.colorIdentity, aCard.getColorIdentity())
+					&& StringUtils.equals(this.type, aCard.getType())
+					&& ListUtils.isEqualList(this.supertypes, aCard.getSupertypes())
+					&& ListUtils.isEqualList(this.types, aCard.getTypes())
+					&& ListUtils.isEqualList(this.subtypes, aCard.getSubtypes())
+					&& StringUtils.equals(this.rarity, aCard.getRarity())
+					&& StringUtils.equals(this.text, aCard.getText())
+					&& StringUtils.equals(this.flavor, aCard.getFlavor())
+					&& StringUtils.equals(this.artist, aCard.getArtist())
+					&& StringUtils.equals(this.number, aCard.getNumber())
+					&& StringUtils.equals(this.power, aCard.getPower())
+					&& StringUtils.equals(this.toughness, aCard.getToughness())
+					&& StringUtils.equals(this.loyalty, aCard.getLoyalty())
+					&& StringUtils.equals(this.multiverseid, aCard.getMultiverseId())
+					&& ListUtils.isEqualList(this.variations, aCard.getVariations())
+					&& StringUtils.equals(this.watermark, aCard.getWatermark())
+					&& StringUtils.equals(this.border, aCard.getBorder())
 					&& this.timeshifted == aCard.isTimeshifted()
-					&& this.hand.equals(aCard.getHand())
-					&& this.life.equals(aCard.getLife())
+					&& StringUtils.equals(this.hand, aCard.getHand())
+					&& StringUtils.equals(this.life, aCard.getLife())
 					&& this.reserved == aCard.isReserved()
-					&& this.releaseDate.equals(aCard.getReleaseDate())
+					&& StringUtils.equals(this.releaseDate, aCard.getReleaseDate())
 					&& this.starter == aCard.isStarter()
-					&& this.rulings.size() == aCard.getRulings().size()
-					&& this.rulings.containsAll(aCard.getRulings())
-					&& this.foreignNames.size() == aCard.getForeignNames().size()
-					&& this.foreignNames.containsAll(aCard.getForeignNames())
-					&& this.printings.size() == aCard.getPrintings().size()
-					&& this.printings.containsAll(aCard.getPrintings())
-					&& this.originalText.equals(aCard.getOriginalText())
-					&& this.originalType.equals(aCard.getOriginalType())
-					&& this.legalities.size() == aCard.getLegalities().size()
-					&& this.legalities.containsAll(aCard.getLegalities())
-					&& this.source.equals(aCard.getSource())) {
+					&& ListUtils.isEqualList(this.rulings, aCard.getRulings())
+					&& ListUtils.isEqualList(this.foreignNames, aCard.getForeignNames())
+					&& ListUtils.isEqualList(this.printings, aCard.getPrintings())
+					&& StringUtils.equals(this.originalText, aCard.getOriginalText())
+					&& StringUtils.equals(this.originalType, aCard.getOriginalType())
+					&& ListUtils.isEqualList(this.legalities, aCard.getLegalities())
+					&& StringUtils.equals(this.source, aCard.getSource())) {
 				return true;
 			}
 		}
@@ -222,9 +205,9 @@ public class Card {
 				.append(this.colors)
 				.append(this.colorIdentity)
 				.append(this.type)
-				.append(this.superTypes)
+				.append(this.supertypes)
 				.append(this.types)
-				.append(this.subTypes)
+				.append(this.subtypes)
 				.append(this.rarity)
 				.append(this.text)
 				.append(this.flavor)
@@ -233,7 +216,7 @@ public class Card {
 				.append(this.power)
 				.append(this.toughness)
 				.append(this.loyalty)
-				.append(this.multiverseId)
+				.append(this.multiverseid)
 				.append(this.variations)
 				.append(this.watermark)
 				.append(this.border)
@@ -325,12 +308,12 @@ public class Card {
 		this.type = type;
 	}
 
-	public List<String> getSuperTypes() {
-		return superTypes;
+	public List<String> getSupertypes() {
+		return supertypes;
 	}
 
-	public void setSuperTypes(List<String> superTypes) {
-		this.superTypes = superTypes;
+	public void setSupertypes(List<String> supertypes) {
+		this.supertypes = supertypes;
 	}
 
 	public List<String> getTypes() {
@@ -341,12 +324,12 @@ public class Card {
 		this.types = types;
 	}
 
-	public List<String> getSubTypes() {
-		return subTypes;
+	public List<String> getSubtypes() {
+		return subtypes;
 	}
 
-	public void setSubTypes(List<String> subtypes) {
-		this.subTypes = subtypes;
+	public void setSubtypes(List<String> subtypes) {
+		this.subtypes = subtypes;
 	}
 
 	public String getRarity() {
@@ -414,11 +397,11 @@ public class Card {
 	}
 
 	public String getMultiverseId() {
-		return multiverseId;
+		return multiverseid;
 	}
 
 	public void setMultiverseId(String multiverseId) {
-		this.multiverseId = multiverseId;
+		this.multiverseid = multiverseId;
 	}
 
 	public List<String> getVariations() {
@@ -501,11 +484,11 @@ public class Card {
 		this.rulings = rulings;
 	}
 
-	public List<Pair<String, String>> getForeignNames() {
+	public List<ForeignVariant> getForeignNames() {
 		return foreignNames;
 	}
 
-	public void setForeignNames(List<Pair<String, String>> foreignNames) {
+	public void setForeignNames(List<ForeignVariant> foreignNames) {
 		this.foreignNames = foreignNames;
 	}
 
@@ -533,11 +516,11 @@ public class Card {
 		this.originalType = originalType;
 	}
 
-	public List<Pair<String, String>> getLegalities() {
+	public List<Format> getLegalities() {
 		return legalities;
 	}
 
-	public void setLegalities(List<Pair<String, String>> legalities) {
+	public void setLegalities(List<Format> legalities) {
 		this.legalities = legalities;
 	}
 

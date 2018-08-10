@@ -1,10 +1,11 @@
 package ca.corykruger.magic.magic_library.mtgjson.set;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import javafx.util.Pair;
 
 /**
  * A released set of cards
@@ -18,12 +19,12 @@ public class Set {
 	private String type;
 	private String block;
 	private boolean onlineOnly;
-	private String booster;
-	private List<Pair<String, String>> translations;
+	private List<?> booster;
+	private Translation translations;
 	private List<Card> cards;
 	
 	public Set(String name, String code, String releaseDate, String border, String type, String block, 
-			boolean onlineOnly, String booster, List<Pair<String, String>> translations, List<Card> cards) {
+			boolean onlineOnly, List<?> booster, Translation translations, List<Card> cards) {
 		this.name = name;
 		this.code = code;
 		this.releaseDate = releaseDate;
@@ -49,18 +50,16 @@ public class Set {
 		
 		if (obj instanceof Set) {
 			Set aSet = (Set) obj;
-			if (this.name.equals(aSet.getName())
-					&& this.code.equals(aSet.getCode())
-					&& this.releaseDate.equals(aSet.getReleaseDate())
-					&& this.border.equals(aSet.getBorder())
-					&& this.type.equals(aSet.getType())
-					&& this.block.equals(aSet.getBlock())
+			if (StringUtils.equals(this.name, aSet.getName())
+					&& StringUtils.equals(this.code, aSet.getCode())
+					&& StringUtils.equals(this.releaseDate, aSet.getReleaseDate())
+					&& StringUtils.equals(this.border, aSet.getBorder())
+					&& StringUtils.equals(this.type, aSet.getType())
+					&& StringUtils.equals(this.block, aSet.getBlock())
 					&& this.onlineOnly == aSet.isOnlineOnly()
-					&& this.booster.equals(aSet.getBooster())
-					&& this.translations.size() == aSet.getTranslations().size()
-					&& this.translations.containsAll(aSet.getTranslations())
-					&& this.cards.size() == aSet.getCards().size()
-					&& this.cards.containsAll(aSet.getCards())) {
+					&& ListUtils.isEqualList(this.booster, aSet.getBooster())
+					&& Objects.equals(this.translations, aSet.getTranslations())
+					&& ListUtils.isEqualList(this.cards, aSet.getCards())) {
 				return true;
 			}
 		}
@@ -140,19 +139,19 @@ public class Set {
 		this.onlineOnly = onlineOnly;
 	}
 
-	public String getBooster() {
+	public List<?> getBooster() {
 		return booster;
 	}
 
-	public void setBooster(String booster) {
+	public void setBooster(List<?> booster) {
 		this.booster = booster;
 	}
 
-	public List<Pair<String, String>> getTranslations() {
+	public Translation getTranslations() {
 		return translations;
 	}
 
-	public void setTranslations(List<Pair<String, String>> translations) {
+	public void setTranslations(Translation translations) {
 		this.translations = translations;
 	}
 

@@ -1,5 +1,6 @@
 package ca.corykruger.magic.magic_library.mtgjson.set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
@@ -33,7 +34,8 @@ public class Ruling {
 		
 		if (obj instanceof Ruling) {
 			Ruling aRuling = (Ruling) obj;
-			if (this.date.equals(aRuling.getDate()) && this.text.equals(aRuling.getText())) {
+			if (StringUtils.equals(this.date, aRuling.getDate()) 
+					&& StringUtils.equals(this.text, aRuling.getText())) {
 				return true;
 			}
 		}
