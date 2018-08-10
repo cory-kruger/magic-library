@@ -27,6 +27,9 @@ import org.mockito.stubbing.Answer;
 
 import com.google.gson.Gson;
 
+import ca.corykruger.magic.magic_library.mtgjson.card.Card;
+import ca.corykruger.magic.magic_library.mtgjson.card.ForeignVariant;
+import ca.corykruger.magic.magic_library.mtgjson.card.Format;
 import ca.corykruger.magic.magic_library.utils.FileUtilsWrapper;
 
 public class SetRetrieverTest {

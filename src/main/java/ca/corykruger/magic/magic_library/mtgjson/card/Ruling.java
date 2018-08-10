@@ -1,4 +1,4 @@
-package ca.corykruger.magic.magic_library.mtgjson.set;
+package ca.corykruger.magic.magic_library.mtgjson.card;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

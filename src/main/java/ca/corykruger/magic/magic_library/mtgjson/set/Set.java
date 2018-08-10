@@ -7,6 +7,8 @@ import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import ca.corykruger.magic.magic_library.mtgjson.card.Card;
+
 /**
  * A released set of cards
  */
